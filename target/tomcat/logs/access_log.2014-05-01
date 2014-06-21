@@ -1,0 +1,4 @@
+0:0:0:0:0:0:0:1 - - [01/May/2014:14:47:31 -0300] "GET /topburger HTTP/1.1" 404 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [01/May/2014:14:47:31 -0300] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [01/May/2014:14:47:52 -0300] "GET /topburger HTTP/1.1" 404 - http-bio-8080-exec-4 0
+0:0:0:0:0:0:0:1 - - [01/May/2014:14:48:01 -0300] "GET /topburger/index.jsp HTTP/1.1" 404 - http-bio-8080-exec-6 0

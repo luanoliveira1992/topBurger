@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:top="http://java.sun.com/jsf/composite/topburger">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Manter Funcionario</title>
+</h:head>
+<h:body>
+    <top:cabecalhoPaginas cabecalho="Listagem de Funcionarios">
+    </top:cabecalhoPaginas>
+    <br></br>
+    <h:form id="formPesquisa">
+         <table align="center">
+            <tr>
+               <td>
+                  <p:outputLabel value="Nome: "/>
+                  
+               </td>
+               <td>
+                <p:inputText value="#{manterFuncionarioMB.funcionario.nome}"></p:inputText>
+              </td>
+            
+            </tr>
+            <tr>
+               <td>
+                  <p:outputLabel value="Tipo: "/>
+                  
+               </td>
+               <td>
+                <p:inputText value="#{manterFuncionarioMB.funcionario.tipo}"></p:inputText>
+              </td>
+            
+            </tr>
+            <tr>
+               <td>
+                   <p:outputLabel value="Data Nascimento: "/>
+               
+               </td>
+               <td>
+                  <p:calendar  value="#{manterFuncionarioMB.funcionario.dataNascimento}" pattern="dd/MM/yyyy" maxlength="10" mindate="01/01/1900" maxdate="01/01/2100" >
+                  
+                   
+                  </p:calendar>
+               
+               </td>
+            </tr>
+            <tr>
+              <td>
+               
+              
+              </td>
+             
+            </tr>
+          </table>
+         
+          <br></br>
+          <div align="center">
+          <p:commandButton actionListener="#{manterFuncionarioMB.consultaListagem}"  value="Pesquisar">
+            <p:ajax listener="#{manterFuncionarioMB.consultaListagem}" update=":formListagem"></p:ajax>
+          
+          </p:commandButton>
+              
+          </div>
+    </h:form>
+    <br></br>
+    <h:form id="formListagem">
+    <div align="center">
+        <p:dataTable style="width: 800px;" var="funcionario" value="#{manterFuncionarioMB.lazyModel}" paginator="true" rows="10"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manterFuncionarioMB.funcionario}" id="funTable" lazy="true">
+       <p:column headerText="Nome" sortBy="#{funcionario.nome}" filterBy="#{funcionario.nome}">
+            <h:outputText value="#{funcionario.nome}" />
+        </p:column>
+        <p:column headerText="Tipo" sortBy="#{funcionario.tipo}">
+            <h:outputText value="#{funcionario.tipo.descricao}" />
+        </p:column>
+        
+        <p:column headerText="Email" sortBy="#{funcionario.email}">
+            <h:outputText value="#{funcionario.email}" />
+        </p:column>
+        <p:column headerText="Data Nascimento" sortBy="#{funcionario.dataNascimento}">
+            <h:outputText value="#{funcionario.dataNascimento}" />
+        </p:column>
+         <p:column headerText="Telefone" sortBy="#{funcionario.telefone}">
+            <h:outputText value="#{funcionario.telefone}" />
+        </p:column>
+        
+    </p:dataTable>
+    
+    </div>
+    
+    </h:form>
+ 
+
+</h:body>
+</html>
