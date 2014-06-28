@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:top="http://java.sun.com/jsf/composite/topburger">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="funcionario"/>
+			<composite:attribute name="listaTipo"/>
+         </composite:interface>
+
+
+		<composite:implementation>
+			<h:form>
+			     <table>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="true" valor="Nome"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputText value="#{cc.attrs.funcionario.nome}"/>
+			         </td>
+			     </tr>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="true" valor="Tipo"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			           <p:selectOneMenu value="#{cc.attrs.funcionario.tipo}">
+			              <f:selectItems var="tipo" 
+			                             value="#{cc.attrs.listaTipo}" 
+			                             itemLabel="#{tipo.descricao}" 
+			                             itemValue="#{tipo}"/>
+			           
+			           
+			           </p:selectOneMenu>
+			         </td>
+			     </tr>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="false" valor="Telefone"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputMask mask="(999) 9999-9999" value="#{cc.attrs.funcionario.telefone}"/>
+			         </td>
+			     </tr>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="false" valor="Nascimento"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:calendar value="#{cc.attrs.funcionario.dataNascimento}"/>
+			         </td>
+			     </tr>
+			      <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="false" valor="Email"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputText value="#{cc.attrs.funcionario.email}"/>
+			         </td>
+			     </tr>
+			    </table>
+			</h:form>
+
+		</composite:implementation>
+
+</html>

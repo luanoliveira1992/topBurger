@@ -69,8 +69,11 @@
     </h:form>
     <br></br>
     <h:form id="formListagem">
+    
+      <p:commandButton value="Novo" action="#{manterFuncionarioMB.callInserir}" icon="ui-icon-pencil"></p:commandButton>
+    
     <div align="center">
-        <p:dataTable style="width: 800px;" var="funcionario" value="#{manterFuncionarioMB.lazyModel}" paginator="true" rows="10"
+        <p:dataTable style="width: 1000px;" var="funcionario" value="#{manterFuncionarioMB.lazyModel}" paginator="true" rows="10"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                  rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manterFuncionarioMB.funcionario}" id="funTable" lazy="true">
        <p:column headerText="Nome" sortBy="#{funcionario.nome}" filterBy="#{funcionario.nome}">
@@ -88,6 +91,9 @@
         </p:column>
          <p:column headerText="Telefone" sortBy="#{funcionario.telefone}">
             <h:outputText value="#{funcionario.telefone}" />
+        </p:column>
+         <p:column headerText="Ações">
+            
         </p:column>
         
     </p:dataTable>

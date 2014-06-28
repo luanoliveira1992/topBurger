@@ -35,7 +35,7 @@ public class Funcionario implements ObjetoPersistente<Integer> {
 	@NotEmpty
 	private String nome;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="funtipo",nullable=false)
 	private TipoFuncionario tipo;
 	

@@ -2,26 +2,24 @@ package topburger.business;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import topburger.infraestrutura.Filtro;
 import topburger.infraestrutura.ObjetoPersistente;
-import topburger.persistence.AbstractDao;
+import topburger.persistence.AbstractTopBurgerDAO;
 
-@Repository
+@Service("abstractController")
+@Transactional(readOnly = true)
 public abstract class AbstractController<T extends ObjetoPersistente<C>,C> implements IController<T,C> {
-	
-	@Autowired
-	AbstractDao<T,C> dao;
+
+	AbstractTopBurgerDAO<T,C> dao;
 
 	@Override
 	@Transactional
 	public void insert(T objeto) {
 		try{
-			this.dao.insert(objeto);
+			this.getDao().insert(objeto);
 		}catch(RuntimeException e){
 			
 		}
@@ -31,28 +29,35 @@ public abstract class AbstractController<T extends ObjetoPersistente<C>,C> imple
 	@Override
 	@Transactional
 	public void update(T objeto) {
-		this.dao.update(objeto);
+		this.getDao().update(objeto);
 		
 	}
 
 	@Override
-	@Transactional()
+	@Transactional(readOnly=true)
 	public List<T> consultarTodos() {
-		return this.dao.consultarTodos();
+		return this.getDao().consultarTodos();
 	}
 
 	@Override
-	@Transactional()
+	@Transactional(readOnly=true)
 	public List<T> consultarPorFiltro(Filtro filtro, String... ordenar) {
-		return this.dao.consultarPorFiltro(filtro, ordenar);
+		return this.getDao().consultarPorFiltro(filtro, ordenar);
 		
 	}
 
 	@Override
 	@Transactional()
 	public void delete(T objeto) {
-		this.dao.delete(objeto);
+		this.getDao().delete(objeto);
 		
+	}
+	
+	public AbstractTopBurgerDAO<T, C> getDao() {
+		return dao;
+	}
+	public void setDao(AbstractTopBurgerDAO<T, C> dao) {
+		this.dao = dao;
 	}
 
 }

@@ -1,23 +1,28 @@
 package topburger.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import topburger.entitys.Funcionario;
+import topburger.persistence.AbstractTopBurgerDAO;
 import topburger.persistence.FuncionarioDao;
 
-
-@Component
-public class FuncionarioControler extends AbstractController<Funcionario,Integer> implements IFuncionarioControler  {
+@Controller
+public class FuncionarioControler extends AbstractController<Funcionario,Integer> implements IFuncionarioControler <Funcionario,Integer>  {
+	
+	@Autowired(required=true)
+	AbstractTopBurgerDAO<Funcionario, Integer> funcionarioDao;
 	
 	@Autowired
 	FuncionarioDao dao;
 	
-	public FuncionarioDao getDao() {
-		return dao;
+	@Override
+	public AbstractTopBurgerDAO<Funcionario, Integer> getDao() {
+		return funcionarioDao;
 	}
-	public void setDao(FuncionarioDao dao) {
-		this.dao = dao;
+	@Override
+	public void setDao(AbstractTopBurgerDAO<Funcionario, Integer> dao) {
+		funcionarioDao = dao;
 	}
 	
 	
