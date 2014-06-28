@@ -9,33 +9,42 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TransactionRequiredException;
+import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import topburger.entitys.Funcionario;
 import topburger.infraestrutura.Filtro;
 import topburger.infraestrutura.ObjetoPersistente;
 
-@Repository
+
 public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements IDao<T,C> {
-	private @PersistenceUnit EntityManagerFactory factory;
-	private @PersistenceContext EntityManager manager;
 	private Class objectClass;
 	
+	
+	public SessionFactory sessionFactory;
+	
+	@SuppressWarnings("unchecked")
 	public AbstractDao(){
-		super();
 		this.objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+	
+	public Session getSession(){
+		return this.sessionFactory.getCurrentSession();
 	}
 	
 	@Override
 	public void insert(T objeto) {
 		try{
-			this.manager.persist(objeto);
+			this.getSession().persist(objeto);
 			
 		}catch(IllegalArgumentException e){
 			
@@ -44,9 +53,9 @@ public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements I
 	}
 
 	@Override
-	public void update(T objeto) {
+    public void update(T objeto) {
 		try{
-		this.manager.merge(objeto);
+		this.getSession().merge(objeto);
 		}catch(TransactionRequiredException  e){
 			
 		}
@@ -54,15 +63,14 @@ public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements I
 
 	@Override
 	public List<T> consultarTodos() {
-		Session session = (Session) this.manager.getDelegate();
-		Criteria criteria = session.createCriteria(objectClass);
+		Criteria criteria = getSession().createCriteria(objectClass);
 		return criteria.list();
 	}
 
 	@Override
 	public List<T> consultarPorFiltro(Filtro filtro,String...ordenar) {
-		Session session = (Session) this.manager.getDelegate();
-		Criteria criteria = session.createCriteria(objectClass);
+		
+		Criteria criteria = getSession().createCriteria(objectClass);
 		
 		for(Entry<String, Object> entry:  filtro.getValores().entrySet()){
 			if(entry.getValue() != null){
@@ -90,7 +98,7 @@ public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements I
 	@Override
 	public void delete(T objeto) {
 		try{
-			this.manager.remove(objeto);
+			this.getSession().delete(objeto);
 		}catch(IllegalArgumentException e){
 			
 		}
@@ -99,8 +107,14 @@ public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements I
 
 	@Override
 	public Class<T> getObjectClass() {
-		// TODO Auto-generated method stub
-		return objectClass;
+				return objectClass;
 	}
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 
 }
