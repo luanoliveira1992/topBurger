@@ -1,3 +1,5 @@
+
+
 package topburger.entitys;
 
 import java.util.List;
@@ -11,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import topburger.infraestrutura.ObjetoPersistente;
 
@@ -50,5 +54,30 @@ public class TipoFuncionario implements ObjetoPersistente<Integer> {
 	public void setNivel(NivelCargo nivel) {
 		this.nivel = nivel;
 	}
+	
+	
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(this instanceof TipoFuncionario)){
+			return false;
+		}
+		if(this.getCodigo() != ((TipoFuncionario)obj).codigo){
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder()
+        .append(codigo).toHashCode();
+		
+	}
+	@Override
+	public String toString() {
+		return this.getDescricao()+"-"+this.getCodigo()+"-"+getNivel();
+	}
+	
 	
 }

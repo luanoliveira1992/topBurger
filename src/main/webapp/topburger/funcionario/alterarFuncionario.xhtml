@@ -8,13 +8,13 @@
       xmlns:top="http://java.sun.com/jsf/composite/topburger">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Novo Funcionario</title>
+<title>Alterar Funcionario</title>
 </h:head>
 <h:body>
    <top:cabecalhoPaginas cabecalho="Inclusão de Funcionarios">
     </top:cabecalhoPaginas>
    <div></div>
-      <h:form id="formInclusao">
+      <h:form id="formAlteracao">
       
           <top:painelEdicaoFuncionario funcionario="#{manterFuncionarioMB.funcionario}"
                                         listaTipo="#{manterFuncionarioMB.listaTipo}">
@@ -22,8 +22,8 @@
 			     
 			 
 			  <p:commandButton value="Voltar" action="#{manterFuncionarioMB.voltar}"></p:commandButton>
-             <p:commandButton value="Salvar" action="#{manterFuncionarioMB.salvar}">
-             <p:ajax process=":formInclusao" update="@all"></p:ajax>
+             <p:commandButton value="Salvar" action="#{manterFuncionarioMB.alterar}">
+             <p:ajax process=":formAlteracao" update="@all"></p:ajax>
              </p:commandButton>
       
       </h:form>

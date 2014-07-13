@@ -16,5 +16,7 @@ public interface IController<T extends ObjetoPersistente<C>,C> {
     
     public void delete(T objeto);
     
+    public T buscaPorChave(C chave);
+    
     
 }

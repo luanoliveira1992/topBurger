@@ -2,6 +2,7 @@ package topburger.business;
 
 import java.util.List;
 
+import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,9 +51,16 @@ public abstract class AbstractController<T extends ObjetoPersistente<C>,C> imple
 	@Transactional()
 	public void delete(T objeto) {
 		this.getDao().delete(objeto);
-		
 	}
 	
+	
+	
+	@Override
+	public T buscaPorChave(C chave) {
+		return this.getDao().buscaPorChave(chave);
+		 
+	}
+
 	public AbstractTopBurgerDAO<T, C> getDao() {
 		return dao;
 	}

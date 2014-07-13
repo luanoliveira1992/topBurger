@@ -4,23 +4,14 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.TransactionRequiredException;
-import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.hibernate.metadata.ClassMetadata;
 
 import topburger.infraestrutura.Filtro;
 import topburger.infraestrutura.ObjetoPersistente;
@@ -109,6 +100,16 @@ public abstract class AbstractDao<T extends ObjetoPersistente<C>,C> implements I
 	public Class<T> getObjectClass() {
 				return objectClass;
 	}
+	
+	
+	@Override
+	public T buscaPorChave(C chave) {
+		//ClassMetadata metaData = sessionFactory.getClassMetadata(this.getObjectClass());
+		Criteria criteria = getSession().createCriteria(objectClass);
+		criteria.add(Restrictions.eq("codigo", chave));
+		return (T) criteria.uniqueResult();
+	}
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

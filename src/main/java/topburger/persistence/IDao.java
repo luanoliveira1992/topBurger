@@ -18,5 +18,7 @@ public interface IDao<T extends ObjetoPersistente<C>, C> {
      public void delete(T objeto);
      
      public Class<T> getObjectClass();
+     
+     public T buscaPorChave(C chave);
 
 }

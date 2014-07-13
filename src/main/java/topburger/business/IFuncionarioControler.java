@@ -1,10 +1,11 @@
 package topburger.business;
 
+import topburger.entitys.Funcionario;
 import topburger.infraestrutura.ObjetoPersistente;
 
 
 
-public interface IFuncionarioControler<T extends ObjetoPersistente<C>, C > extends IController<T, C>{
+public interface IFuncionarioControler extends IController<Funcionario, Integer>{
 
 	
    
