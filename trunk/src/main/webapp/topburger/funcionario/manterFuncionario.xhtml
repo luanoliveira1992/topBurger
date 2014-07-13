@@ -13,8 +13,10 @@
 <h:body>
     <top:cabecalhoPaginas cabecalho="Listagem de Funcionarios">
     </top:cabecalhoPaginas>
+    
     <br></br>
     <h:form id="formPesquisa">
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
          <table align="center">
             <tr>
                <td>
@@ -64,14 +66,15 @@
             <p:ajax listener="#{manterFuncionarioMB.consultaListagem}" update=":formListagem"></p:ajax>
           
           </p:commandButton>
+           
               
           </div>
     </h:form>
     <br></br>
     <h:form id="formListagem">
     
-      <p:commandButton value="Novo" action="#{manterFuncionarioMB.callInserir}" icon="ui-icon-pencil"></p:commandButton>
-    
+      
+    <p:commandButton value="Novo" action="#{manterFuncionarioMB.callInserir}" icon="ui-icon-pencil"></p:commandButton>
     <div align="center">
         <p:dataTable style="width: 1000px;" var="funcionario" value="#{manterFuncionarioMB.lazyModel}" paginator="true" rows="10"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -93,14 +96,29 @@
             <h:outputText value="#{funcionario.telefone}" />
         </p:column>
          <p:column headerText="Ações">
-            
+            <p:commandButton title="Alterar" icon="ui-icon-pencil" action="#{manterFuncionarioMB.callAlterar}">
+            <f:setPropertyActionListener target="#{manterFuncionarioMB.funcionario}" value="#{funcionario}" />
+         </p:commandButton>
+          
+        <p:commandButton icon="ui-icon-trash" title="Deletar" action="#{manterFuncionarioMB.deletar}" update="@form">
+             <f:setPropertyActionListener target="#{manterFuncionarioMB.funcionario}" value="#{funcionario}" />
+             <p:confirm header="Confirmação" message="Deseja Realmente Deletar o Funcionário ?" icon="ui-icon-alert" />
+         </p:commandButton>
+ 
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+         
+         
+         
         </p:column>
         
     </p:dataTable>
     
     </div>
-    
     </h:form>
+ 
  
 
 </h:body>

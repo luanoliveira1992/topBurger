@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import topburger.business.FuncionarioControler;
 import topburger.business.IController;
 import topburger.business.IFuncionarioControler;
+import topburger.business.ITipoFuncionarioControler;
 import topburger.business.TipoFuncionarioControler;
 import topburger.entitys.Funcionario;
 import topburger.entitys.TipoFuncionario;
@@ -35,20 +36,19 @@ public class ManterFuncionarioMB extends AbstractMB{
 	public List<TipoFuncionario> listaTipo;
 	Filtro filtro;
 	private LazyDataModel<Funcionario> lazyModel;
+	private String numeroTelefone;
 	
 	@Autowired
 	IFuncionarioControler controler;
 	
-	
-	
-	IController<TipoFuncionario, Integer> tipoFuncionarioControler;
+	@Autowired
+	ITipoFuncionarioControler tipoFuncionarioControler;
 	
 	
 
 	@Override
 	@PostConstruct
 	public void inicializar() {
-		
 		funcionario = new Funcionario();
 		funcionarios = new ArrayList<>();
 		filtro = new Filtro();
@@ -57,7 +57,9 @@ public class ManterFuncionarioMB extends AbstractMB{
 }
 	@Override
 	public void chamaInserir(String url) {
+		funcionario = new Funcionario();
 		listaTipo = tipoFuncionarioControler.consultarTodos();
+		this.numeroTelefone = new String();
 		super.chamaInserir(url);
 	}
 	@Override
@@ -84,15 +86,42 @@ public class ManterFuncionarioMB extends AbstractMB{
 	}
 	
 	public void voltar(){
-		super.voltar("topburger/faces/topburger/funcionario/manterFuncionario.xhtml");
+		super.voltar("/topburger/funcionario/manterFuncionario.xhtml");
 	}
 	public void callInserir(){
-		super.chamaInserir("topburger/faces/topburger/funcionario/inserirFuncionario.xhtml");
+		chamaInserir("/topburger/funcionario/inserirFuncionario.xhtml");
+	}
+	
+	public void callAlterar(){
+		if(this.funcionario == null){
+			
+		}
+		chamaAlterar("/topburger/funcionario/alterarFuncionario.xhtml");
 	}
 	
 	public void salvar(){
+		TipoFuncionario tipoFuncionarioAtual = tipoFuncionarioControler.buscaPorChave(funcionario.getTipo().getCodigo());
+		this.funcionario.setTipo(tipoFuncionarioAtual);
 		controler.insert(this.funcionario);
+		voltar();
+		adcionaMensagemSucesso("Funcionário Cadastrado Com Sucesso !");
+		this.funcionario = new Funcionario();
 	}
+	
+	public void alterar(){
+		TipoFuncionario tipoFuncionarioAtual = tipoFuncionarioControler.buscaPorChave(funcionario.getTipo().getCodigo());
+		this.funcionario.setTipo(tipoFuncionarioAtual);
+		controler.update(this.funcionario);
+		voltar();
+		adcionaMensagemSucesso("Funcionário Alterardo Com Sucesso !");
+	}
+	
+	public void deletar(){
+		controler.delete(funcionario);
+		adcionaMensagemSucesso("Funcionário Deletado Com Sucesso !");
+	}
+	
+
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
@@ -106,12 +135,8 @@ public class ManterFuncionarioMB extends AbstractMB{
 	public void setLazyModel(LazyDataModel<Funcionario> lazyModel) {
 		this.lazyModel = lazyModel;
 	}
-	public List<TipoFuncionario> getTipoFuncionario() {
-		return listaTipo;
-	}
-	public void setTipoFuncionario(List<TipoFuncionario> tipoFuncionario) {
-		this.listaTipo = tipoFuncionario;
-	}
+	
+	
 	public IController<Funcionario, Integer> getControler() {
 		return controler;
 	}
@@ -119,6 +144,14 @@ public class ManterFuncionarioMB extends AbstractMB{
 	public IController<TipoFuncionario, Integer> getTipoFuncionarioControler() {
 		return tipoFuncionarioControler;
 	}
+	
+	public List<TipoFuncionario> getListaTipo() {
+		return listaTipo;
+	}
+	public void setListaTipo(List<TipoFuncionario> listaTipo) {
+		this.listaTipo = listaTipo;
+	}
+	
 	
 	
 	

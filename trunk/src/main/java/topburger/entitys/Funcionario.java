@@ -43,8 +43,6 @@ public class Funcionario implements ObjetoPersistente<Integer> {
      private List<Venda> vendas;
 	
 	@Column(name="funtel")
-	@Max(11)
-	@Min(10)
 	private Long telefone;
 	
 	@Column(name="fundatanascimento")

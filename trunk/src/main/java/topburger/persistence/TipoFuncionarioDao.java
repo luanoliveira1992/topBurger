@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import topburger.entitys.TipoFuncionario;
 @Component(value="tipoFuncinarioDao")
-public class TipoFuncionarioDao extends AbstractTopBurgerDAO<TipoFuncionario, Integer> {
+public class TipoFuncionarioDao extends AbstractTopBurgerDAO<TipoFuncionario, Integer> implements IDao<TipoFuncionario, Integer> {
 
 	
 	AbstractDao<TipoFuncionario, Integer> dao;

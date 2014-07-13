@@ -16,8 +16,7 @@
 
 
 		<composite:implementation>
-			<h:form>
-			     <table>
+			 <table>
 			     <tr>
 			        <td>
 			          <top:outputLabelObrigatorio obrigatorio="true" valor="Nome"></top:outputLabelObrigatorio>
@@ -31,7 +30,7 @@
 			          <top:outputLabelObrigatorio obrigatorio="true" valor="Tipo"></top:outputLabelObrigatorio>
 			        </td>
 			         <td>
-			           <p:selectOneMenu value="#{cc.attrs.funcionario.tipo}">
+			           <p:selectOneMenu converter="TipoFuncionarioConverter" value="#{cc.attrs.funcionario.tipo}">
 			              <f:selectItems var="tipo" 
 			                             value="#{cc.attrs.listaTipo}" 
 			                             itemLabel="#{tipo.descricao}" 
@@ -46,7 +45,7 @@
 			          <top:outputLabelObrigatorio obrigatorio="false" valor="Telefone"></top:outputLabelObrigatorio>
 			        </td>
 			         <td>
-			         <p:inputMask mask="(999) 9999-9999" value="#{cc.attrs.funcionario.telefone}"/>
+			         <p:inputMask converter="TelefoneConverter" mask="(99) 9999-9999" value="#{cc.attrs.funcionario.telefone}"/>
 			         </td>
 			     </tr>
 			     <tr>
@@ -66,7 +65,7 @@
 			         </td>
 			     </tr>
 			    </table>
-			</h:form>
+			
 
 		</composite:implementation>
 

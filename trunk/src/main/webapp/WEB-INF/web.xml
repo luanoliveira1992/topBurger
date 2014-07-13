@@ -40,7 +40,18 @@
 		<param-value>
 			/WEB-INF/applicationContext.xml
 		</param-value>
-    </context-param>   	   		
+    </context-param>  
+    
+    <!-- Configuração para o OpenSessionInView -->  
+  <filter>    
+    <filter-name>openSessionInViewFilter</filter-name>    
+    <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>    
+  </filter>    
+  
+  <filter-mapping>    
+    <filter-name>openSessionInViewFilter</filter-name>    
+    <url-pattern>/faces/*</url-pattern>    
+  </filter-mapping> 	   		
 	
 	
 </web-app>
