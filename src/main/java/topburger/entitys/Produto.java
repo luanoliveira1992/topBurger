@@ -1,20 +1,30 @@
 package topburger.entitys;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import topburger.infraestrutura.ObjetoPersistente;
 
 @Entity
 @Table(name="tbproduto")
-public class Produto implements ObjetoPersistente<Integer> {
+public class Produto implements ObjetoPersistente<Integer>, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6319913080730816316L;
+
 	@Column(name="procodigo")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,11 +36,16 @@ public class Produto implements ObjetoPersistente<Integer> {
 	
 	@Column(name="provalidade")
 	private Timestamp validade;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "produtos")
+	private List<Prato> pratos;
+	
+	@Transient
+	private boolean escolhido;
 
 
 	@Override
 	public Integer getCodigo() {
-		// TODO Auto-generated method stub
 		return this.codigo;
 	}
 	public String getDescricao() {
@@ -55,6 +70,21 @@ public class Produto implements ObjetoPersistente<Integer> {
 
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
+	}
+	
+	public List<Prato> getPratos() {
+		return pratos;
+	}
+	public void setPratos(List<Prato> pratos) {
+		this.pratos = pratos;
+	}
+	
+	
+	public boolean isEscolhido() {
+		return escolhido;
+	}
+	public void setEscolhido(boolean escolhido) {
+		this.escolhido = escolhido;
 	}
 	@Override
 	public int hashCode() {
@@ -82,6 +112,11 @@ public class Produto implements ObjetoPersistente<Integer> {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getDescricao()+this.getCodigo();
 	}
 	
 	

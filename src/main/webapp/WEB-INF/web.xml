@@ -42,7 +42,7 @@
 		</param-value>
     </context-param>  
     
-    <!-- Configuração para o OpenSessionInView -->  
+      <!-- Configuracao para o OpenSessionInView -->  
   <filter>    
     <filter-name>openSessionInViewFilter</filter-name>    
     <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>    
@@ -51,7 +51,9 @@
   <filter-mapping>    
     <filter-name>openSessionInViewFilter</filter-name>    
     <url-pattern>/faces/*</url-pattern>    
-  </filter-mapping> 	   		
+  </filter-mapping> 
+    
+     		
 	
 	
 </web-app>

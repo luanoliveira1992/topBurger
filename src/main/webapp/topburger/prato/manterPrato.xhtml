@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:top="http://java.sun.com/jsf/composite/topburger">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Manter Pratos</title>
+</h:head>
+<h:body>
+    <top:cabecalhoPaginas cabecalho="Listagem de Pratos">
+    </top:cabecalhoPaginas>
+    
+    <br></br>
+    <h:form id="formPesquisa">
+       <table align="center">
+            <tr>
+               <td>
+                  <p:outputLabel value="Nome: "/>
+                  
+               </td>
+               <td>
+                <p:inputText value="#{manterPratoMB.prato.nome}"></p:inputText>
+              </td>
+            
+            </tr>
+            
+          </table>
+         
+          <br></br>
+          <div align="center">
+          <p:commandButton actionListener="#{manterPratoMB.consultaListagem}"  value="Pesquisar">
+            <p:ajax listener="#{manterPratoMB.consultaListagem}" update=":formListagem"></p:ajax>
+          
+          </p:commandButton>
+           
+              
+          </div>
+    </h:form>
+    <br></br>
+    <h:form id="formListagem">
+    
+    <div align="center"> 
+         <p:commandButton value="Novo" action="#{manterPratoMB.callInserir}" icon="ui-icon-pencil"></p:commandButton>
+    </div> 
+    <div align="center">
+        <p:dataTable style="width: 1000px;" var="prato" value="#{manterPratoMB.lazyModel}" paginator="true" rows="10"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manterPratoMB.prato}" id="funTable" lazy="true">
+       <p:column headerText="Nome" sortBy="#{prato.nome}" filterBy="#{prato.nome}">
+            <h:outputText value="#{prato.nome}" />
+        </p:column>
+        <p:column headerText="Valor" sortBy="#{prato.valor}">
+            <h:outputText value="#{prato.valor}" />
+        </p:column>
+        
+        <p:column headerText="Valor Calórico" sortBy="#{prato.valorCalorico}">
+            <h:outputText value="#{prato.valorCalorico}" />
+        </p:column>
+        <p:column headerText="Ações">
+            <p:commandButton title="Alterar" icon="ui-icon-pencil" action="#{manterPratoMB.callAlterar}">
+            <f:setPropertyActionListener target="#{manterPratoMB.prato}" value="#{prato}" />
+         </p:commandButton>
+          
+        <p:commandButton icon="ui-icon-trash" title="Deletar" action="#{manterPratoMB.deletar}" update="@form">
+             <f:setPropertyActionListener target="#{manterPratoMB.prato}" value="#{prato}" />
+             <p:confirm header="Confirmação" message="Deseja Realmente Deletar o Prato ?" icon="ui-icon-alert" />
+         </p:commandButton>
+ 
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+         
+         
+         
+        </p:column>
+        
+    </p:dataTable>
+    
+    </div>
+    </h:form>
+ 
+ 
+
+</h:body>
+</html>

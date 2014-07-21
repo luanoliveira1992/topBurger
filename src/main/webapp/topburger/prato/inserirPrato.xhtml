@@ -8,24 +8,27 @@
       xmlns:top="http://java.sun.com/jsf/composite/topburger">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Novo Funcionario</title>
+<title>Novo Prato</title>
 </h:head>
 <h:body>
    <top:cabecalhoPaginas cabecalho="Inclusão de Funcionarios">
     </top:cabecalhoPaginas>
    <div></div>
       <h:form id="formInclusao">
-        <div align="center">
-          <top:painelEdicaoFuncionario funcionario="#{manterFuncionarioMB.funcionario}"
-                                        listaTipo="#{manterFuncionarioMB.listaTipo}">
-          </top:painelEdicaoFuncionario>
-		     
+       <div align="center">
+       <br></br>
+          <top:painelEdicaoPrato prato="#{manterPratoMB.prato}"
+                                        dataModelProduto="#{manterPratoMB.lazyModelProduto}">
+          </top:painelEdicaoPrato>
+          
+			     <br></br>
 			 
-			  <p:commandButton value="Voltar" action="#{manterFuncionarioMB.voltar}"></p:commandButton>
-             <p:commandButton value="Salvar" action="#{manterFuncionarioMB.salvar}">
+			  <p:commandButton value="Voltar" action="#{manterPratoMB.voltar}"></p:commandButton>
+             <p:commandButton value="Salvar" action="#{manterPratoMB.salvar}">
              <p:ajax process=":formInclusao" update="@all"></p:ajax>
              </p:commandButton>
-          </div>	
+            </div>
+      
       </h:form>
       
       
