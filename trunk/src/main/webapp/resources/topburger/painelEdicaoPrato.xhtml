@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:top="http://java.sun.com/jsf/composite/topburger">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="prato"/>
+			<composite:attribute name="dataModelProduto" type="org.primefaces.model.LazyDataModel"/>
+         </composite:interface>
+
+
+		<composite:implementation>
+			 <table>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="true" valor="Nome"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputText value="#{cc.attrs.prato.nome}"/>
+			         </td>
+			     </tr>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="true" valor="valor"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputText id="phone" value="#{cc.attrs.prato.valor}"/>
+			         </td>
+			     </tr>
+			     <tr>
+			        <td>
+			          <top:outputLabelObrigatorio obrigatorio="false" valor="Caloria"></top:outputLabelObrigatorio>
+			        </td>
+			         <td>
+			         <p:inputText value="#{cc.attrs.prato.valorCalorico}"/>
+			         </td>
+			     </tr>
+			     
+			      
+			    </table>
+			
+
+		</composite:implementation>
+
+</html>

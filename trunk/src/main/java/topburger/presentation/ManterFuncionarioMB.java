@@ -112,6 +112,7 @@ public class ManterFuncionarioMB extends AbstractMB{
 		TipoFuncionario tipoFuncionarioAtual = tipoFuncionarioControler.buscaPorChave(funcionario.getTipo().getCodigo());
 		this.funcionario.setTipo(tipoFuncionarioAtual);
 		controler.update(this.funcionario);
+		this.funcionario = new Funcionario();
 		voltar();
 		adcionaMensagemSucesso("Funcionário Alterardo Com Sucesso !");
 	}
