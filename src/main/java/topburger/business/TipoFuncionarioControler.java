@@ -26,6 +26,14 @@ public class TipoFuncionarioControler extends AbstractController<TipoFuncionario
 	public void setDao(AbstractTopBurgerDAO<TipoFuncionario, Integer> dao) {
 		this.dao = this.tipofuncionarioDao;
 	}
+
+	public TipoFuncionarioDao getTipofuncionarioDao() {
+		return tipofuncionarioDao;
+	}
+
+	public void setTipofuncionarioDao(TipoFuncionarioDao tipofuncionarioDao) {
+		this.tipofuncionarioDao = tipofuncionarioDao;
+	}
 	
 	
 	

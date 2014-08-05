@@ -18,6 +18,7 @@ import topburger.business.IProdutoControler;
 import topburger.entitys.Prato;
 import topburger.entitys.Produto;
 import topburger.infraestrutura.Filtro;
+import topburger.infraestrutura.NegocioException;
 
 @SuppressWarnings("serial")
 @Component
@@ -64,7 +65,6 @@ public class ManterPratoMB  extends AbstractMB{
 	private void configuraChamadaInsercao() {
 		
 		this.listaProduto = controllerProduto.consultarTodos();
-		this.lazyModelProduto = new ProdutoDataModel(listaProduto);
 		this.listaFinal = new ArrayList<Produto>();
 		this.prato = new Prato();
 		this.prato.setProdutos(new ArrayList<Produto>());
@@ -99,7 +99,12 @@ public class ManterPratoMB  extends AbstractMB{
 	}
 	
 	public void alterar(){
+		try{
 		 this.controllerPrato.update(this.prato);
+		}catch( Exception e){
+			this.adcionaMensagemErro(e.getMessage());
+			
+		}
 		 this.voltar("/topburger/prato/manterPrato.xhtml");
 		 this.adcionaMensagemSucesso("Prato Alterado com Sucesso!");
 	}

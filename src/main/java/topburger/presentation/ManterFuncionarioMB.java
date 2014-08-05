@@ -37,6 +37,7 @@ public class ManterFuncionarioMB extends AbstractMB{
 	Filtro filtro;
 	private LazyDataModel<Funcionario> lazyModel;
 	private String numeroTelefone;
+	private TipoFuncionario tipo;
 	
 	@Autowired
 	IFuncionarioControler controler;
@@ -52,7 +53,10 @@ public class ManterFuncionarioMB extends AbstractMB{
 		funcionario = new Funcionario();
 		funcionarios = new ArrayList<>();
 		filtro = new Filtro();
+		this.tipo = new TipoFuncionario();
+		listaTipo = tipoFuncionarioControler.consultarTodos();
 		lazyModel = new FuncionarioDataModel(controler.consultarPorFiltro(filtro, "nome"));
+		
 		
 }
 	@Override
@@ -75,11 +79,13 @@ public class ManterFuncionarioMB extends AbstractMB{
 	}
 	
 	public void consultaListagem(){
+		this.tipo = this.tipoFuncionarioControler.buscaPorChave(this.tipo.getCodigo());
 		Map<String,Object> valores = new HashMap<String,Object>();
+		if(funcionario.getNome() != null)
 		valores.put("%nome", funcionario.getNome());
-		valores.put("tipo", funcionario.getTipo());
-		valores.put("dataNascimento", funcionario.getDataNascimento());
-		System.out.println(funcionario.getNome());
+		if(tipo.getCodigo() != null)
+		  valores.put("tipo", tipo);
+		
 		filtro.setValores(valores);
 		
 		lazyModel = new FuncionarioDataModel(controler.consultarPorFiltro(filtro, "nome"));
@@ -151,6 +157,12 @@ public class ManterFuncionarioMB extends AbstractMB{
 	}
 	public void setListaTipo(List<TipoFuncionario> listaTipo) {
 		this.listaTipo = listaTipo;
+	}
+	public TipoFuncionario getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoFuncionario tipo) {
+		this.tipo = tipo;
 	}
 	
 	

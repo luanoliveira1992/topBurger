@@ -10,6 +10,14 @@ import topburger.persistence.ProdutoDao;
 @Controller
 public class ProdutoControler extends AbstractController<Produto,Integer> implements IProdutoControler  {
 	
+	public ProdutoDao getProdutoDao() {
+		return produtoDao;
+	}
+
+	public void setProdutoDao(ProdutoDao produtoDao) {
+		this.produtoDao = produtoDao;
+	}
+
 	@Autowired(required=true)
 	ProdutoDao produtoDao;
 
