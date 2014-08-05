@@ -22,6 +22,15 @@ public class FuncionarioControler extends AbstractController<Funcionario,Integer
 	public void setDao(AbstractTopBurgerDAO<Funcionario, Integer> dao) {
 		this.dao = this.funcionarioDao;
 	}
+
+	public FuncionarioDao getFuncionarioDao() {
+		return funcionarioDao;
+	}
+
+	public void setFuncionarioDao(FuncionarioDao funcionarioDao) {
+		this.funcionarioDao = funcionarioDao;
+	}
+	
 	
 	
 

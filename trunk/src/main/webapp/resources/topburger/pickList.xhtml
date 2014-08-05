@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="editavel" default="true"/>
+	<composite:attribute name="obrigatorio" default="false" />
+	<composite:attribute name="itemLabel" />
+	<composite:attribute name="itemValue" />
+	<composite:attribute name="listaDupla" typRe="org.primefaces.model.DualListModel"  required="true"/>
+	<composite:editableValueHolder name="converter" targets="#{cc.id}_PickListMenu" default="StringConverter"/>
+</composite:interface>
+
+<composite:implementation>
+	<p:pickList id="#{cc.id}_Label"  value="#{cc.attrs.listaDupla}" var="dualList"   
+									rendered="#{cc.attrs.editavel}"
+									required="#{cc.attrs.obrigatorio}"
+									converter="#{cc.attrs.converter}"
+									itemLabel="#{cc.attrs.itemLabel eq null ? dualList : dualList[cc.attrs.itemLabel]}"
+									itemValue="#{cc.attrs.itemValue eq null ? dualList : dualList[cc.attrs.itemValue]}"/>
+															
+	<p:dataList value="#{cc.attrs.listaDupla.source}" var="dualList" rendered="#{ not cc.attrs.editavel}" >
+		#{cc.attrs.itemLabel eq null ? dualList : dualList[cc.attrs.itemLabel]} 
+	</p:dataList>
+</composite:implementation>
+</html>

@@ -21,7 +21,7 @@
           </top:painelEdicaoFuncionario>
 		     
 			 
-			  <p:commandButton value="Voltar" action="#{manterFuncionarioMB.voltar}"></p:commandButton>
+			  <p:commandButton value="Voltar" actionListener="#{manterFuncionarioMB.voltar}"></p:commandButton>
              <p:commandButton value="Salvar" action="#{manterFuncionarioMB.salvar}">
              <p:ajax process=":formInclusao" update="@all"></p:ajax>
              </p:commandButton>

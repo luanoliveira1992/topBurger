@@ -27,41 +27,13 @@
               </td>
             
             </tr>
-            <tr>
-               <td>
-                  <p:outputLabel value="Tipo: "/>
-                  
-               </td>
-               <td>
-                <p:inputText value="#{manterFuncionarioMB.funcionario.tipo}"></p:inputText>
-              </td>
+                        
             
-            </tr>
-            <tr>
-               <td>
-                   <p:outputLabel value="Data Nascimento: "/>
-               
-               </td>
-               <td>
-                  <p:calendar  value="#{manterFuncionarioMB.funcionario.dataNascimento}" pattern="dd/MM/yyyy" maxlength="10" mindate="01/01/1900" maxdate="01/01/2100" >
-                  
-                   
-                  </p:calendar>
-               
-               </td>
-            </tr>
-            <tr>
-              <td>
-               
-              
-              </td>
-             
-            </tr>
           </table>
          
           <br></br>
           <div align="center">
-          <p:commandButton actionListener="#{manterFuncionarioMB.consultaListagem}"  value="Pesquisar">
+          <p:commandButton action="#{manterFuncionarioMB.consultaListagem}"  value="Pesquisar">
             <p:ajax listener="#{manterFuncionarioMB.consultaListagem}" update=":formListagem"></p:ajax>
           
           </p:commandButton>

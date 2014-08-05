@@ -25,10 +25,13 @@ public class TelefoneConverter implements Converter {
        if (value!= null && !value.equals("")){
     	   numero = value.replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "");
        }
-      String string = numero.trim();  
+       String string = "0009";
+       if(numero != null){
+           string = numero.trim();  
        while (string.contains(" ")) {  
            string = string.replaceAll(" ", "");  
-       }  
+        }  
+       }
         
      return  Long.valueOf(string);
 		
